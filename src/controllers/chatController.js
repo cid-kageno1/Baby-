@@ -1,32 +1,15 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { replyFromMemory, teachMemory } from "../utils/responder.js";
+import { getReply, teach } from "../utils/responder.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const memoryPath = path.join(__dirname, "../db/memory.json");
+export const handleChat = (req, res) => {
+    const { msg, teachReply } = req.body;
 
-export function handleChat(req, res) {
-  const message = req.body.msg?.trim().toLowerCase();
+    if (!msg) return res.status(400).json({ error: "Message is required" });
 
-  if (!message) {
-    return res.status(400).json({ error: "msg is required" });
-  }
+    if (teachReply) {
+        teach(msg, teachReply);
+        return res.json({ reply: `I learned how to respond to "${msg}"!` });
+    }
 
-  const memory = JSON.parse(fs.readFileSync(memoryPath, "utf8"));
-  const reply = replyFromMemory(memory, message);
-
-  // Known reply
-  if (reply) {
-    return res.json({ reply, learned: false });
-  }
-
-  // Unknown: teach stub
-  const teachText = "I don't know this yet. Send back with 'teach' to teach me.";
-
-  memory[message] = teachText;
-  fs.writeFileSync(memoryPath, JSON.stringify(memory, null, 2));
-
-  return res.json({ reply: teachText, learned: false });
-}
+    const reply = getReply(msg);
+    res.json({ reply });
+};
