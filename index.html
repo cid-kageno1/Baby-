@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Baby Bot Chat</title>
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -78,7 +77,7 @@
     e.preventDefault();
     const msg = msgInput.value.trim();
     if (!msg) return;
-    
+
     addMessage(msg, true); // user message
     msgInput.value = "";
 
