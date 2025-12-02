@@ -1,12 +1,14 @@
 import express from "express";
+import cors from "cors";
 import chatRoutes from "./src/routes/chatRoutes.js";
 
 const app = express();
-app.use(express.json());
-
-app.use("/api/chat", chatRoutes);
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Baby Bot running on port ${PORT}`);
-});
+
+app.use(cors());
+app.use(express.json());
+app.use("/api", chatRoutes);
+
+app.get("/", (req, res) => res.send("Baby Bot API is running."));
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
