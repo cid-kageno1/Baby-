@@ -1,1 +1,6 @@
-{}
+{
+  "hi": ["Hello!", "Hi there!", "Hey! How can I help you?"],
+  "how are you": ["I'm just a bot, but I'm doing fine!", "All good here!", "I'm functioning properly!"],
+  "bye": ["Goodbye!", "See you later!", "Take care!"],
+  "what is your name": ["I am Baby Bot.", "My name is Baby Bot.", "They call me Baby Bot."]
+}
