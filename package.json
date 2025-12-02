@@ -1,0 +1,8 @@
+{
+  "name": "baby-bot-api",
+  "type": "module",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
